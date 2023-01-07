@@ -17,7 +17,7 @@ spec:
           name: auth-service
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc::postgres://snuffleupagus.db.elephantsql.com:5432/kbesujbr
+              value: jdbc:postgres://snuffleupagus.db.elephantsql.com:5432/kbesujbr
             - name: KUMULUZEE_DATASOURCES0_USERNAME
               value: kbesujbr
             - name: KUMULUZEE_DATASOURCES0_PASSWORD

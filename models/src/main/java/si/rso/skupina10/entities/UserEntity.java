@@ -2,10 +2,10 @@ package si.rso.skupina10.entities;
 
 import javax.persistence.*;
 
-@Entity(name = "user")
+@Entity(name = "userentitiy")
 @NamedQueries(value = {
-        @NamedQuery(name = "User.getAll", query = "SELECT u FROM user u"),
-        @NamedQuery(name = "User.getUserById", query = "SELECT u FROM user u WHERE u.userId = :userId")
+        @NamedQuery(name = "User.getAll", query = "SELECT u FROM userentitiy u"),
+        @NamedQuery(name = "User.getUserById", query = "SELECT u FROM userentitiy u WHERE u.userId = :userId")
 })
 public class UserEntity {
     @Id
