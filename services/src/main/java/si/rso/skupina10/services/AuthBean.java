@@ -43,12 +43,21 @@ public class AuthBean {
         }
     }
 
-    public List<UserDto> getUsers(UriInfo uriInfo){
+    public List<UserDto> getUsers(UriInfo uriInfo) {
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0)
                 .build();
+        String u = uriInfo.getQueryParameters().getFirst("username");
 
         return JPAUtils.queryEntities(em, UserEntity.class, queryParameters).stream()
-                .map(UserConverter::toDto).collect(Collectors.toList());
+                .map(UserConverter::toDto)
+                .filter(s -> {
+                    if (u != null) {
+                        return s.getUsername().equals(u);
+                    } else {
+                        return true;
+                    }
+                })
+                .collect(Collectors.toList());
     }
 
     public UserDto getUser(Integer userId) {
