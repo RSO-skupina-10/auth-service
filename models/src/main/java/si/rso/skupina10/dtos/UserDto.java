@@ -1,29 +1,16 @@
-package si.rso.skupina10.entities;
+package si.rso.skupina10.dtos;
 
-import javax.persistence.*;
-
-@Entity(name = "user")
-@NamedQueries(value = {
-        @NamedQuery(name = "User.getAll", query = "SELECT u FROM user u"),
-        @NamedQuery(name = "User.getUserById", query = "SELECT u FROM user u WHERE u.userId = :userId")
-})
-public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
-
+public class UserDto {
+    private Integer id;
     private String username;
-
     private String password;
-
-    private Integer role; // 0 if user, 1 if delivery
-
+    private Integer role;
     private Float lat;
     private Float lng;
 
-    public Integer getUserId() {return userId; }
+    public Integer getId() {return id; }
 
-    public void setUserId(Integer userId) {this.userId = userId;}
+    public void setId(Integer userId) {this.id = userId;}
 
     public String getUsername() {return username;}
     public void setUsername(String username) {this.username = username;}
@@ -39,4 +26,6 @@ public class UserEntity {
 
     public Float getLng(){return lng;}
     public void setLng(Float lng){this.lng = lng;}
+
+    public String toString(){ return "User id: "+ id; }
 }
