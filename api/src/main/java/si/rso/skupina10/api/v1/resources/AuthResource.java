@@ -44,10 +44,10 @@ public class AuthResource {
     @GET
     public Response getUsers() {
         log.info("getUsers called.");
-        List<UserDto> orders = authBean.getUsers(uriInfo);
+        List<UserDto> users = authBean.getUsers(uriInfo);
 
-        log.info("getUsers output: " + orders.toString());
-        return Response.status(Response.Status.OK).entity(orders).build();
+        log.info("getUsers output: " + users.toString());
+        return Response.status(Response.Status.OK).entity(users).build();
     }
 
     @GET
