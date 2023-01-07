@@ -1,0 +1,16 @@
+kumuluzee:
+  name: auth-service
+  version: 1.0.0
+  env:
+    name: dev
+  server:
+    base-url: http://localhost:8084
+    http:
+      port: 8084
+  datasources:
+    - jndi-name: jdbc/AuthServiceDS
+      connection-url: jdbc:postgresql://localhost:5435/authservice
+      username: postgres
+      password: postgres
+      pool:
+        max-size: 3
