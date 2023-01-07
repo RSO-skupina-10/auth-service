@@ -13,7 +13,7 @@ spec:
         app: auth-service
     spec:
       containers:
-        - image: klemen1999/auth-service:2023-01-07-16-42-45
+        - image: klemen1999/auth-service:2023-01-07-20-12-51
           name: auth-service
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL

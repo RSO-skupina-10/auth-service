@@ -64,16 +64,24 @@ public class AuthBean {
 
     @Transactional
     public UserDto addUser(UserDto u) {
+        UserEntity entity = UserConverter.toEntity(u);
+
         try {
-            UserEntity entity = UserConverter.toEntity(u);
+            beginTx();
             em.persist(entity);
             em.flush();
+            commitTx();
             log.info("User " + u.getId() + " was added");
             return UserConverter.toDto(entity);
         } catch (Exception e) {
+            rollbackTx();
             log.severe("Error at addUser "+ e);
-            return null;
         }
+
+        if (entity.getUserId() == null){
+            throw new RuntimeException("Entity was not persisted");
+        }
+        return UserConverter.toDto(entity);
     }
 
     @Transactional
@@ -81,10 +89,34 @@ public class AuthBean {
         UserEntity order = em.find(UserEntity.class, orderId);
 
         if (order != null) {
-            em.remove(order);
-            em.flush();
+            try{
+                beginTx();
+                em.remove(order);
+                em.flush();
+                commitTx();
+            }catch ( Exception e){
+                rollbackTx();
+            }
             return true;
         }
         return false;
+    }
+
+    private void beginTx() {
+        if (!em.getTransaction().isActive()) {
+            em.getTransaction().begin();
+        }
+    }
+
+    private void commitTx() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().commit();
+        }
+    }
+
+    private void rollbackTx() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
     }
 }

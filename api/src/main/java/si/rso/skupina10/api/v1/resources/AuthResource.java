@@ -84,8 +84,8 @@ public class AuthResource {
             )
     ) UserDto userDto) {
         log.info("addNewUser " + userDto);
-        UserDto newOrder = authBean.addUser(userDto);
-        if (newOrder == null) {
+        UserDto newUser = authBean.addUser(userDto);
+        if (newUser == null) {
             log.severe("Could not add new user.");
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
