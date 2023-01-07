@@ -27,17 +27,21 @@ public class AuthBean {
     private static final Logger log = Logger.getLogger(AuthBean.class.getName());
 
     @PostConstruct
-    private void init(){ log.info("Initialization of the " + AuthBean.class.getSimpleName());}
+    private void init() {
+        log.info("Initialization of the " + AuthBean.class.getSimpleName());
+    }
 
     @PreDestroy
-    private void destroy(){ log.info( "Destroy "+ AuthBean.class.getSimpleName()); }
+    private void destroy() {
+        log.info("Destroy " + AuthBean.class.getSimpleName());
+    }
 
     public List<UserDto> getUsers() {
-        try{
+        try {
             Query q = em.createNamedQuery("User.getAll");
             List<UserEntity> resultList = (List<UserEntity>) q.getResultList();
             return resultList.stream().map(UserConverter::toDto).collect(Collectors.toList());
-        } catch (Exception e){
+        } catch (Exception e) {
             log.severe("Error at getUsers: " + e);
             return null;
         }
@@ -81,16 +85,16 @@ public class AuthBean {
             em.flush();
             commitTx();
             log.info("User " + u.getId() + " was added");
+            if (entity.getUserId() == null){
+                rollbackTx();
+                throw new RuntimeException("Entity was not persisted");
+            }
             return UserConverter.toDto(entity);
         } catch (Exception e) {
             rollbackTx();
-            log.severe("Error at addUser "+ e);
+            log.severe("Error at addUser " + e);
+            return null;
         }
-
-        if (entity.getUserId() == null){
-            throw new RuntimeException("Entity was not persisted");
-        }
-        return UserConverter.toDto(entity);
     }
 
     @Transactional
