@@ -13,11 +13,11 @@ spec:
         app: auth-service
     spec:
       containers:
-        - image: klemen1999/auth-service:2023-01-07-20-12-51
+        - image: klemen1999/auth-service:2023-01-08-16-19-17
           name: auth-service
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgres://snuffleupagus.db.elephantsql.com:5432/kbesujbr
+              value: jdbc:postgresql://snuffleupagus.db.elephantsql.com:5432/kbesujbr
             - name: KUMULUZEE_DATASOURCES0_USERNAME
               value: kbesujbr
             - name: KUMULUZEE_DATASOURCES0_PASSWORD
